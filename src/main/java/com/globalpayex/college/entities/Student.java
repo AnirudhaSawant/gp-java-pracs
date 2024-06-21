@@ -4,7 +4,7 @@ public class Student extends CollegeUsers {
     // Object attributes
     // instance variables
     int roll;
-    int marks;
+    public int marks;
 
     static int count;
 
