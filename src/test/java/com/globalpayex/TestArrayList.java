@@ -1,5 +1,7 @@
 package com.globalpayex;
 
+import com.globalpayex.college.entities.CollegeUsers;
+import com.globalpayex.college.entities.Student;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -91,6 +93,71 @@ public class TestArrayList {
 
         assertEquals(expected,nl);
 
+    }
+
+    @Test
+    void testDeductionBy1() {
+        var nos = Arrays.asList(10,4,1,9,8,7);
+        var expected = Arrays.asList(9,3,0,8,7,6);
+
+        var actual = nos.stream()
+                .map(n -> n - 1)
+                .collect(Collectors.toList());
+
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void testFilterPlusMap() {
+        var nos = Arrays.asList(10,4,1,9,8,7);
+        var expected = Arrays.asList(81,49);
+
+        var actual = nos.stream()
+                .filter(n->n % 2 != 0 && n > 1)
+                .map(n -> n * n)
+                .collect(Collectors.toList());
+
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void testStudents1() {
+        var students = Arrays.asList(
+                new Student("Anirudha",58,'m',90),
+                new Student("Jane",10,'f',50),
+                new Student("Sheela",40,'f',80),
+                new Student("Amit",6,'m',71)
+        );
+
+        var expected = "Jane,Sheela";
+        var actual = students.stream()
+                .filter(s -> s.getGender() == 'f')
+                .map(student -> student.getName())
+                .collect(Collectors.joining(","));
+
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void testStudent2() {
+        var students = Arrays.asList(
+                new Student("Anirudha",58,'m',90),
+                new Student("Jane",10,'f',50),
+                new Student("Sheela",40,'f',80),
+                new Student("Amit",6,'m',71)
+        );
+
+        var expected = Arrays.asList(
+                new Student("Sheela",40,'f',80),
+                new Student("Jane",10,'f',50)
+        );
+
+        var actual = students.stream()
+                .filter(student -> student.getGender() == 'f')
+                .sorted((s1,s2) -> Integer.compare(s2.marks,s1.marks))
+                .collect(Collectors.toList());
+
+        assertEquals(expected.get(0).marks,actual.get(0).marks);
     }
 
 }

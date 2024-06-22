@@ -1,9 +1,11 @@
 package com.globalpayex.college.entities;
 
+import java.util.Objects;
+
 public class Student extends CollegeUsers {
     // Object attributes
     // instance variables
-    int roll;
+    public int roll;
     public int marks;
 
     static int count;
@@ -47,5 +49,18 @@ public class Student extends CollegeUsers {
         }
 
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return roll == student.roll;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(roll);
     }
 }
